@@ -27,7 +27,7 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
     <meta content="Three Penny Press" property="og:title" />
     <meta content="" property="og:description" />
-    <title>Three Penny Press</title>
+    <title>Brown Paper Bag</title>
     <!-- Description and Keywords (start) -->
     <meta content="YOUR DESCRIPTION HERE" name="description" />
     <meta content="YOUR KEYWORDS HERE" name="keywords" />
@@ -70,7 +70,7 @@
                   <div class="widget Header" data-version="1" id="Header1">
                     <div id="header-inner">
                       <div class="titlewrapper">
-                        <h1 class="title">Typography</h1>
+                        <h1 class="title">Brown Paper Bag</h1>
                       </div>
                       <div class="descriptionwrapper">
                         <p class="description"><span> </span></p>
@@ -82,7 +82,7 @@
             </div>
           </div>
           <div class="nav-menu">
-            <a
+            <!--<a
               data-original-title="Search"
               data-placement="bottom"
               data-toggle="tooltip"
@@ -90,7 +90,7 @@
               id="slink"
               title=""
               ><i aria-hidden="true" class="fa fa-search"></i
-            ></a>
+            ></a>-->
             <div class="header-menu">
               <div
                 class="menu section"
@@ -104,9 +104,9 @@
                     <li class="hasSub">
                       <a href="#">Series</a>
                       <ul id="sub-menu">
-                        <li><a href="#">Typography</a></li>
-                        <li><a href="#">Minimal</a></li>
-                        <li><a href="#">drop down</a></li>
+                        <li><a href="#">Last Rites</a></li>
+                        <li><a href="#">Cloud City</a></li>
+                        <!--<li><a href="#">drop down</a></li>-->
                       </ul>
                     </li>
                     <li><a href="/p/about.html">About</a></li>
@@ -127,18 +127,18 @@
                     <option
                       value="https://typography-themexpose.blogspot.com/#"
                     >
-                      → Typography
+                      → Last Rites
                     </option>
                     <option
                       value="https://typography-themexpose.blogspot.com/#"
                     >
-                      → Minimal
+                      → Cloud City
                     </option>
-                    <option
+                    <!--<option
                       value="https://typography-themexpose.blogspot.com/#"
                     >
                       → drop down
-                    </option>
+                    </option>-->
                     <option
                       value="https://typography-themexpose.blogspot.com/#"
                     >
@@ -186,925 +186,60 @@
           <div class="main section" id="main" name="Main Wrapper">
             <div class="widget Blog" data-version="1" id="Blog1">
               <div class="blog-posts hfeed">
-                <!--Can't find substitution for tag [defaultAdStart]-->
-                <div class="post-outer">
-                  <div
-                    class="post"
-                    data-file="https://typography-themexpose.blogspot.com/2016/08/apples-new-ipad-lets-you-play-latest.html"
-                    data-target="article"
-                  >
-                    <div class="post-header"></div>
-                    <article class="my-wrapz">
-                      <div class="post-detail">
-                        <font class="retitle">
-                          <h2 class="post-title entry-title">
-                            <span>
-                              <a
-                                href="https://typography-themexpose.blogspot.com/2016/08/apples-new-ipad-lets-you-play-latest.html"
-                              >
-                                A beautiful blog with no images required
-                              </a>
-                            </span>
-                          </h2>
-                        </font>
-                        <div class="date-header">
-                          <div class="entry-meta">
-                            <div class="meta-item meta-author">
-                              By
-                              <span class="vcard author"
-                                ><span class="fn"
-                                  ><a
-                                    class="g-profile"
-                                    href="https://www.blogger.com/profile/13466932854452109456"
-                                    rel="author"
-                                    title="rina chaudhary"
-                                    >rina chaudhary</a
-                                  ></span
-                                ></span
-                              >
+                <% posts.forEach(post => { %>
+                  <div class="post-outer">
+                    <div class="post" data-file="<%= post.url %>" data-target="article">
+                      <div class="post-header"></div>
+                      <article class="my-wrapz">
+                        <div class="post-detail">
+                          <font class="retitle">
+                            <h2 class="post-title entry-title">
+                              <span>
+                                <a href="/posts<%= post.url %>">
+                                  <%= post.title %>
+                                </a>
+                              </span>
+                            </h2>
+                          </font>
+                          <div class="date-header">
+                            <div class="entry-meta">
+                              <div class="meta-item meta-author">
+                                By
+                                <span class="vcard author">
+                                  <span class="fn">
+                                    <a class="g-profile" href="<%= post.authorUrl %>" rel="author">
+                                      <%= post.author %>
+                                    </a>
+                                  </span>
+                                </span>
+                              </div>
+                              <div class="meta-item meta-rtime">
+                                <span class="eta"><%= post.readingTimeDisplay %></span> read
+                              </div>
                             </div>
-                            <div class="meta-item meta-rtime">
-                              <span class="eta">1 minute</span>Read
+                            <div class="post-date">
+                              <span class="post-date-day"><%= post.date.day %></span>
+                              <span class="post-date-month"><%= post.date.month %></span> -
+                              <span class="post-date-year"><%= post.date.year %></span>
                             </div>
-                          </div>
-                          <!--<script
-                            class="java"
-                            src="/feeds/posts/default/5489187315635371296?alt=json-in-script&amp;callback=metaset"
-                            type="text/javascript"
-                          ></script>-->
-                          <div class="post-date">
-                            <span class="post-date-day">24</span
-                            ><span class="post-date-month">Jul</span> -
-                            <span class="post-date-year">2017</span>
-                          </div>
-                          <div class="resumo">
-                            <div
-                              id="summary5489187315635371296"
-                              style="display: block"
-                            >
-                              <p>
-                                Typography is a WordPress theme created for
-                                bloggers that just want to write, without the
-                                hassle of looking for the right featured image.
-                                It has a unique design based on beautiful
-                                typography and a modern, clean layout. Simply
-                                write your content and publish will handle the
-                                rest. Efficiently negotiate enabled partnerships
-                                whereas team building channels. Competently
-                                visualize cross-platform...
-                              </p>
+                            <div class="resumo">
+                              <div id="summary<%= post.id %>" style="display: block">
+                                  <% post.previewHTML.forEach((line) => { %> 
+                                    <%- line %>
+                                  <% }); %>
+                              </div>
                             </div>
+                            <div class="entry-footer">
+                              <a class="typology-button" href="/posts<%= post.url %>">Read More</a>
+                            </div>
+                            <div style="clear: both"></div>
                           </div>
-                          <!--<script type="text/javascript">
-                            createSummaryAndThumb('summary5489187315635371296');
-                          </script>-->
-                          <div class="entry-footer">
-                            <a
-                              class="typology-button"
-                              href="https://typography-themexpose.blogspot.com/2016/08/apples-new-ipad-lets-you-play-latest.html"
-                              >Read More</a
-                            >
-                           
-                          </div>
-                          <div style="clear: both"></div>
                         </div>
-                      </div>
-                    </article>
-                    <div class="hreview" style="display: none">
-                      <span class="item">
-                        <span class="fn"
-                          >A beautiful blog with no images required</span
-                        >
-                        <img
-                          alt="A beautiful blog with no images required"
-                          class="photo"
-                          src=""
-                        />
-                      </span>
-                      Reviewed by <span class="reviewer">rina chaudhary</span>
-                      on
-                      <span class="dtreviewed">
-                        Monday, July 24, 2017
-                        <span
-                          class="value-title"
-                          title="Monday, July 24, 2017"
-                        ></span>
-                      </span>
-                      Rating: <span class="rating">5</span>
+                      </article>
                     </div>
-                    <div style="clear: both"></div>
-                    <div class="post-footer"></div>
                   </div>
-                  <script type="text/javascript">
-                    //<![CDATA[
-                    $('.index .post-outer,.archive .post-outer').each(
-                      function () {
-                        $(this)
-                          .find('.block-image .thumb a')
-                          .attr('style', function (e, t) {
-                            return t.replace('/default.jpg', '/mqdefault.jpg');
-                          })
-                          .attr('style', function (e, t) {
-                            return t.replace('s72-c', 's1600');
-                          });
-                      }
-                    );
-                    //]]>
-                  </script>
-                </div>
-                <!--Can't find substitution for tag [defaultAdEnd]-->
-                <!--Can't find substitution for tag [adStart]-->
-                <div class="post-outer">
-                  <div
-                    class="post"
-                    data-file="https://typography-themexpose.blogspot.com/2016/07/the-best-smartphones-you-can-purchase.html"
-                    data-target="article"
-                  >
-                    <div class="post-header"></div>
-                    <article class="my-wrapz">
-                      <div class="post-detail">
-                        <font class="retitle">
-                          <h2 class="post-title entry-title">
-                            <span>
-                              <a
-                                href="https://typography-themexpose.blogspot.com/2016/07/the-best-smartphones-you-can-purchase.html"
-                              >
-                                Now leave before I am forced to taunt you
-                              </a>
-                            </span>
-                          </h2>
-                        </font>
-                        <div class="date-header">
-                          <div class="entry-meta">
-                            <div class="meta-item meta-author">
-                              By
-                              <span class="vcard author"
-                                ><span class="fn"
-                                  ><a
-                                    class="g-profile"
-                                    href="https://www.blogger.com/profile/13466932854452109456"
-                                    rel="author"
-                                    title="rina chaudhary"
-                                    >rina chaudhary</a
-                                  ></span
-                                ></span
-                              >
-                            </div>
-                            <div class="meta-item meta-rtime">
-                              <span class="eta">1 minute</span>Read
-                            </div>
-                          </div>
-                          <!--<script
-                            class="java"
-                            src="/feeds/posts/default/2556999616343590349?alt=json-in-script&amp;callback=metaset"
-                            type="text/javascript"
-                          ></script>-->
-                          <div class="post-date">
-                            <span class="post-date-day">01</span
-                            ><span class="post-date-month">Jul</span> -
-                            <span class="post-date-year">2017</span>
-                          </div>
-                          <div class="resumo">
-                            <div
-                              id="summary2556999616343590349"
-                              style="display: block"
-                            >
-                              <p>
-                                Credibly customize visionary niches before
-                                alternative services. Compellingly restore
-                                effective total linkage with sticky resources.
-                                Appropriately reconceptualize multifunctional
-                                leadership skills without turnkey outsourcing.
-                                Efficiently negotiate enabled partnerships
-                                whereas team building channels. Dynamically
-                                disseminate customer directed quality vectors
-                                whereas go forward potentialities. Seamlessly
-                                actualize goal-oriented methodologies whereas
-                                value-added innovation. Conveniently impact B2B
-                                manufactured products without magnetic core
-                                competencies. Synergistically...
-                              </p>
-                            </div>
-                          </div>
-                         
-                          <div class="entry-footer">
-                            <a
-                              class="typology-button"
-                              href="https://typography-themexpose.blogspot.com/2016/07/the-best-smartphones-you-can-purchase.html"
-                              >Read More</a
-                            >
-                          </div>
-                          <div style="clear: both"></div>
-                        </div>
-                      </div>
-                    </article>
-                    <div class="hreview" style="display: none">
-                      <span class="item">
-                        <span class="fn"
-                          >Now leave before I am forced to taunt you</span
-                        >
-                        <img
-                          alt="Now leave before I am forced to taunt you"
-                          class="photo"
-                          src=""
-                        />
-                      </span>
-                      Reviewed by <span class="reviewer">rina chaudhary</span>
-                      on
-                      <span class="dtreviewed">
-                        Saturday, July 01, 2017
-                        <span
-                          class="value-title"
-                          title="Saturday, July 01, 2017"
-                        ></span>
-                      </span>
-                      Rating: <span class="rating">5</span>
-                    </div>
-                    <div style="clear: both"></div>
-                    <div class="post-footer"></div>
-                  </div>
-                  <script type="text/javascript">
-                    //<![CDATA[
-                    $('.index .post-outer,.archive .post-outer').each(
-                      function () {
-                        $(this)
-                          .find('.block-image .thumb a')
-                          .attr('style', function (e, t) {
-                            return t.replace('/default.jpg', '/mqdefault.jpg');
-                          })
-                          .attr('style', function (e, t) {
-                            return t.replace('s72-c', 's1600');
-                          });
-                      }
-                    );
-                    //]]>
-                  </script>
-                </div>
-                <div class="post-outer">
-                  <div
-                    class="post"
-                    data-file="https://typography-themexpose.blogspot.com/2016/06/vlc-player-hits-apple-tv-so-you-can.html"
-                    data-target="article"
-                  >
-                    <div class="post-header"></div>
-                    <article class="my-wrapz">
-                      <div class="post-detail">
-                        <font class="retitle">
-                          <h2 class="post-title entry-title">
-                            <span>
-                              <a
-                                href="https://typography-themexpose.blogspot.com/2016/06/vlc-player-hits-apple-tv-so-you-can.html"
-                              >
-                                What could possibly go wrong?
-                              </a>
-                            </span>
-                          </h2>
-                        </font>
-                        <div class="date-header">
-                          <div class="entry-meta">
-                            <div class="meta-item meta-author">
-                              By
-                              <span class="vcard author"
-                                ><span class="fn"
-                                  ><a
-                                    class="g-profile"
-                                    href="https://www.blogger.com/profile/13466932854452109456"
-                                    rel="author"
-                                    title="rina chaudhary"
-                                    >rina chaudhary</a
-                                  ></span
-                                ></span
-                              >
-                            </div>
-                            <div class="meta-item meta-rtime">
-                              <span class="eta">1 minute</span>Read
-                            </div>
-                          </div>
-
-                          <!--<script
-                            class="java"
-                            src="/feeds/posts/default/2554014900666256992?alt=json-in-script&amp;callback=metaset"
-                            type="text/javascript"
-                          ></script>-->
-                          <div class="post-date">
-                            <span class="post-date-day">08</span
-                            ><span class="post-date-month">Jun</span> -
-                            <span class="post-date-year">2017</span>
-                          </div>
-                          <div class="resumo">
-                            <div
-                              id="summary2554014900666256992"
-                              style="display: block"
-                            >
-                              <p>
-                                Dynamically underwhelm integrated outsourcing
-                                via timely models. Rapidiously reconceptualize
-                                visionary imperatives without 24/365 catalysts
-                                for change. Completely streamline functionalized
-                                models and out-of-the-box functionalities.
-                                Authoritatively target proactive vortals.
-                                Globally iterate parallel content vis-a-vis just
-                                in time expertise. Collaboratively cultivate
-                                viral methods of empowerment without interactive
-                                manufactured products. Proactively exploit
-                                process-centric supply chains for distributed
-                                imperatives. Authoritatively empower error-free
-                                total...
-                              </p>
-                            </div>
-                          </div>
-                          
-                          <div class="entry-footer">
-                            <a
-                              class="typology-button"
-                              href="https://typography-themexpose.blogspot.com/2016/06/vlc-player-hits-apple-tv-so-you-can.html"
-                              >Read More</a
-                            >
-                          </div>
-                          <div style="clear: both"></div>
-                        </div>
-                      </div>
-                    </article>
-                    <div class="hreview" style="display: none">
-                      <span class="item">
-                        <span class="fn">What could possibly go wrong?</span>
-                        <img
-                          alt="What could possibly go wrong?"
-                          class="photo"
-                          src=""
-                        />
-                      </span>
-                      Reviewed by <span class="reviewer">rina chaudhary</span>
-                      on
-                      <span class="dtreviewed">
-                        Thursday, June 08, 2017
-                        <span
-                          class="value-title"
-                          title="Thursday, June 08, 2017"
-                        ></span>
-                      </span>
-                      Rating: <span class="rating">5</span>
-                    </div>
-                    <div style="clear: both"></div>
-                    <div class="post-footer"></div>
-                  </div>
-                  <script type="text/javascript">
-                    //<![CDATA[
-                    $('.index .post-outer,.archive .post-outer').each(
-                      function () {
-                        $(this)
-                          .find('.block-image .thumb a')
-                          .attr('style', function (e, t) {
-                            return t.replace('/default.jpg', '/mqdefault.jpg');
-                          })
-                          .attr('style', function (e, t) {
-                            return t.replace('s72-c', 's1600');
-                          });
-                      }
-                    );
-                    //]]>
-                  </script>
-                </div>
-                <div class="post-outer">
-                  <div
-                    class="post"
-                    data-file="https://typography-themexpose.blogspot.com/2015/03/how-to-use-your-smartphone-battery-last.html"
-                    data-target="article"
-                  >
-                    <div class="post-header"></div>
-                    <article class="my-wrapz">
-                      <div class="post-detail">
-                        <font class="retitle">
-                          <h2 class="post-title entry-title">
-                            <span>
-                              <a
-                                href="https://typography-themexpose.blogspot.com/2015/03/how-to-use-your-smartphone-battery-last.html"
-                              >
-                                The simplest ways to choose the best coffee
-                              </a>
-                            </span>
-                          </h2>
-                        </font>
-                        <div class="date-header">
-                          <div class="entry-meta">
-                            <div class="meta-item meta-author">
-                              By
-                              <span class="vcard author"
-                                ><span class="fn"
-                                  ><a
-                                    class="g-profile"
-                                    href="https://www.blogger.com/profile/13466932854452109456"
-                                    rel="author"
-                                    title="rina chaudhary"
-                                    >rina chaudhary</a
-                                  ></span
-                                ></span
-                              >
-                            </div>
-                            <div class="meta-item meta-rtime">
-                              <span class="eta">1 minute</span>Read
-                            </div>
-                          </div>
-
-                          <!--<script
-                            class="java"
-                            src="/feeds/posts/default/2717710992427477208?alt=json-in-script&amp;callback=metaset"
-                            type="text/javascript"
-                          ></script>-->
-                          <div class="post-date">
-                            <span class="post-date-day">04</span
-                            ><span class="post-date-month">Mar</span> -
-                            <span class="post-date-year">2015</span>
-                          </div>
-                          <div class="resumo">
-                            <div
-                              id="summary2717710992427477208"
-                              style="display: block"
-                            >
-                              <p>
-                                Professionally mesh inexpensive experiences
-                                without empowered imperatives. Conveniently
-                                synergize turnkey e-commerce and compelling
-                                information. Credibly conceptualize installed
-                                base internal or “organic” sources through
-                                scalable mindshare. Uniquely aggregate efficient
-                                total. Objectively brand magnetic ideas with
-                                error-free interfaces. Completely orchestrate
-                                seamless manufactured products via turnkey
-                                solutions. Holisticly streamline premium
-                                strategic theme areas vis-a-vis high standards
-                                in platforms. Assertively supply
-                                mission-critical...
-                              </p>
-                            </div>
-                          </div>
-                          
-                          <div class="entry-footer">
-                            <a
-                              class="typology-button"
-                              href="https://typography-themexpose.blogspot.com/2015/03/how-to-use-your-smartphone-battery-last.html"
-                              >Read More</a
-                            >
-                          </div>
-                          <div style="clear: both"></div>
-                        </div>
-                      </div>
-                    </article>
-                    <div class="hreview" style="display: none">
-                      <span class="item">
-                        <span class="fn"
-                          >The simplest ways to choose the best coffee</span
-                        >
-                        <img
-                          alt="The simplest ways to choose the best coffee"
-                          class="photo"
-                          src=""
-                        />
-                      </span>
-                      Reviewed by <span class="reviewer">rina chaudhary</span>
-                      on
-                      <span class="dtreviewed">
-                        Wednesday, March 04, 2015
-                        <span
-                          class="value-title"
-                          title="Wednesday, March 04, 2015"
-                        ></span>
-                      </span>
-                      Rating: <span class="rating">5</span>
-                    </div>
-                    <div style="clear: both"></div>
-                    <div class="post-footer"></div>
-                  </div>
-                  <script type="text/javascript">
-                    //<![CDATA[
-                    $('.index .post-outer,.archive .post-outer').each(
-                      function () {
-                        $(this)
-                          .find('.block-image .thumb a')
-                          .attr('style', function (e, t) {
-                            return t.replace('/default.jpg', '/mqdefault.jpg');
-                          })
-                          .attr('style', function (e, t) {
-                            return t.replace('s72-c', 's1600');
-                          });
-                      }
-                    );
-                    //]]>
-                  </script>
-                </div>
-                <!--Can't find substitution for tag [adEnd]-->
-                <!--Can't find substitution for tag [adStart]-->
-                <div class="post-outer">
-                  <div
-                    class="post"
-                    data-file="https://typography-themexpose.blogspot.com/2015/03/the-iphone-8-could-be-first-apple.html"
-                    data-target="article"
-                  >
-                    <div class="post-header"></div>
-                    <article class="my-wrapz">
-                      <div class="post-detail">
-                        <font class="retitle">
-                          <h2 class="post-title entry-title">
-                            <span>
-                              <a
-                                href="https://typography-themexpose.blogspot.com/2015/03/the-iphone-8-could-be-first-apple.html"
-                              >
-                                The iPhone 8 could be the first Apple handset
-                                with an OLED display
-                              </a>
-                            </span>
-                          </h2>
-                        </font>
-                        <div class="date-header">
-                          <div class="entry-meta">
-                            <div class="meta-item meta-author">
-                              By
-                              <span class="vcard author"
-                                ><span class="fn"
-                                  ><a
-                                    class="g-profile"
-                                    href="https://www.blogger.com/profile/13466932854452109456"
-                                    rel="author"
-                                    title="rina chaudhary"
-                                    >rina chaudhary</a
-                                  ></span
-                                ></span
-                              >
-                            </div>
-                            <div class="meta-item meta-rtime">
-                              <span class="eta">1 minute</span>Read
-                            </div>
-                          </div>
-                          <!--<script
-                            class="java"
-                            src="/feeds/posts/default/2381719389845211321?alt=json-in-script&amp;callback=metaset"
-                            type="text/javascript"
-                          ></script>-->
-                          <div class="post-date">
-                            <span class="post-date-day">04</span
-                            ><span class="post-date-month">Mar</span> -
-                            <span class="post-date-year">2015</span>
-                          </div>
-                          <div class="resumo">
-                            <div
-                              id="summary2381719389845211321"
-                              style="display: block"
-                            >
-                              <p>
-                                Ut wisi enim ad minim veniam, quis nostrud
-                                exerci tation ullamcorper suscipit lobortis nisl
-                                ut aliquip ex ea commodo consequat. Duis autem
-                                vel eum iriure dolor in hendrerit in vulputate
-                                velit esse molestie consequat, vel illum dolore
-                                eu feugiat nulla facilisis at vero eros et
-                                accumsan et iusto odio dignissim qui blandit
-                                praesent luptatum zzril delenit augue duis....
-                              </p>
-                            </div>
-                          </div>
-                          
-                          <div class="entry-footer">
-                            <a
-                              class="typology-button"
-                              href="https://typography-themexpose.blogspot.com/2015/03/the-iphone-8-could-be-first-apple.html"
-                              >Read More</a
-                            >
-                          </div>
-                          <div style="clear: both"></div>
-                        </div>
-                      </div>
-                    </article>
-                    <div class="hreview" style="display: none">
-                      <span class="item">
-                        <span class="fn"
-                          >The iPhone 8 could be the first Apple handset with an
-                          OLED display</span
-                        >
-                        <img
-                          alt="The iPhone 8 could be the first Apple handset with an OLED display"
-                          class="photo"
-                          src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjYB9-v9qakxnMKwmACm8SKb-pmpWrjOHEnY4wt1tq367VSAvyFYyAIaipdcK1K-lGYShqpaQ8iv1XYW6CJWhxJxGedPVXIoNsAeQwXes41y4nt1gjR_W5dHeeUfKommPaSkszZEZnxF_MX/s72-c/image-4-770x410.jpg"
-                        />
-                      </span>
-                      Reviewed by <span class="reviewer">rina chaudhary</span>
-                      on
-                      <span class="dtreviewed">
-                        Wednesday, March 04, 2015
-                        <span
-                          class="value-title"
-                          title="Wednesday, March 04, 2015"
-                        ></span>
-                      </span>
-                      Rating: <span class="rating">5</span>
-                    </div>
-                    <div style="clear: both"></div>
-                    <div class="post-footer"></div>
-                  </div>
-                  <script type="text/javascript">
-                    //<![CDATA[
-                    $('.index .post-outer,.archive .post-outer').each(
-                      function () {
-                        $(this)
-                          .find('.block-image .thumb a')
-                          .attr('style', function (e, t) {
-                            return t.replace('/default.jpg', '/mqdefault.jpg');
-                          })
-                          .attr('style', function (e, t) {
-                            return t.replace('s72-c', 's1600');
-                          });
-                      }
-                    );
-                    //]]>
-                  </script>
-                </div>
-                <div class="post-outer">
-                  <div
-                    class="post"
-                    data-file="https://typography-themexpose.blogspot.com/2015/02/questions-every-urban-traveler-should.html"
-                    data-target="article"
-                  >
-                    <div class="post-header"></div>
-                    <article class="my-wrapz">
-                      <div class="post-detail">
-                        <font class="retitle">
-                          <h2 class="post-title entry-title">
-                            <span>
-                              <a
-                                href="https://typography-themexpose.blogspot.com/2015/02/questions-every-urban-traveler-should.html"
-                              >
-                                Questions every urban traveler should consider –
-                                travelling
-                              </a>
-                            </span>
-                          </h2>
-                        </font>
-                        <div class="date-header">
-                          <div class="entry-meta">
-                            <div class="meta-item meta-author">
-                              By
-                              <span class="vcard author"
-                                ><span class="fn"
-                                  ><a
-                                    class="g-profile"
-                                    href="https://www.blogger.com/profile/13466932854452109456"
-                                    rel="author"
-                                    title="rina chaudhary"
-                                    >rina chaudhary</a
-                                  ></span
-                                ></span
-                              >
-                            </div>
-                            <div class="meta-item meta-rtime">
-                              <span class="eta">Less than a minute</span>Read
-                            </div>
-                          </div>
-                          <!--<script
-                            class="java"
-                            src="/feeds/posts/default/5626639005563893680?alt=json-in-script&amp;callback=metaset"
-                            type="text/javascript"
-                          ></script>-->
-                          <div class="post-date">
-                            <span class="post-date-day">01</span
-                            ><span class="post-date-month">Feb</span> -
-                            <span class="post-date-year">2015</span>
-                          </div>
-                          <div class="resumo">
-                            <div
-                              id="summary5626639005563893680"
-                              style="display: block"
-                            >
-                              <p>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Nulla elementum viverra
-                                pharetra. Nulla facilisis, sapien non pharetra
-                                venenatis, tortor erat tempus est, sed accumsan
-                                odio ante ac elit. Nulla hendrerit a est vel
-                                ornare. Proin eu sapien a sapien dignissim
-                                feugiat non eget turpis. Proin at accumsan
-                                risus. Pellentesque nunc diam, congue ac lacus
-                                nec, volutpat tincidunt turpis....
-                              </p>
-                            </div>
-                          </div>
-                         
-                          <div class="entry-footer">
-                            <a
-                              class="typology-button"
-                              href="https://typography-themexpose.blogspot.com/2015/02/questions-every-urban-traveler-should.html"
-                              >Read More</a
-                            ><!--<a
-                              class="typology-button button-invert typology-rl pocket"
-                              href="https://typography-themexpose.blogspot.com/2015/02/questions-every-urban-traveler-should.html#comments"
-                              >Add comment</a
-                            >-->
-                          </div>
-                          <div style="clear: both"></div>
-                        </div>
-                      </div>
-                    </article>
-                    <div class="hreview" style="display: none">
-                      <span class="item">
-                        <span class="fn"
-                          >Questions every urban traveler should consider –
-                          travelling</span
-                        >
-                        <img
-                          alt="Questions every urban traveler should consider – travelling"
-                          class="photo"
-                          src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjuMgzmbmSqySdOM78J1yC4ei2JRJiJsXV1yp9yLBtwpBW2x3SF8au23Ds71DA6T6l8M2VXi4GeerT7sv4I-Dfxr_Ss2y2HwxyObqkVV32-lNSR4RVDHJrs-mT5dGJfvff5hddAGjmgefRn/s72-c/image-18-770x410.jpeg"
-                        />
-                      </span>
-                      Reviewed by <span class="reviewer">rina chaudhary</span>
-                      on
-                      <span class="dtreviewed">
-                        Sunday, February 01, 2015
-                        <span
-                          class="value-title"
-                          title="Sunday, February 01, 2015"
-                        ></span>
-                      </span>
-                      Rating: <span class="rating">5</span>
-                    </div>
-                    <div style="clear: both"></div>
-                    <div class="post-footer"></div>
-                  </div>
-                  <script type="text/javascript">
-                    //<![CDATA[
-                    $('.index .post-outer,.archive .post-outer').each(
-                      function () {
-                        $(this)
-                          .find('.block-image .thumb a')
-                          .attr('style', function (e, t) {
-                            return t.replace('/default.jpg', '/mqdefault.jpg');
-                          })
-                          .attr('style', function (e, t) {
-                            return t.replace('s72-c', 's1600');
-                          });
-                      }
-                    );
-                    //]]>
-                  </script>
-                </div>
-                <div class="post-outer">
-                  <div
-                    class="post"
-                    data-file="https://typography-themexpose.blogspot.com/2015/01/hidden-ipad-features-that-could-improve.html"
-                    data-target="article"
-                  >
-                    <div class="post-header"></div>
-                    <article class="my-wrapz">
-                      <div class="post-detail">
-                        <font class="retitle">
-                          <h2 class="post-title entry-title">
-                            <span>
-                              <a
-                                href="https://typography-themexpose.blogspot.com/2015/01/hidden-ipad-features-that-could-improve.html"
-                              >
-                                Hidden iPad features that could improve your
-                                life
-                              </a>
-                            </span>
-                          </h2>
-                        </font>
-                        <div class="date-header">
-                          <div class="entry-meta">
-                            <div class="meta-item meta-author">
-                              By
-                              <span class="vcard author"
-                                ><span class="fn"
-                                  ><a
-                                    class="g-profile"
-                                    href="https://www.blogger.com/profile/13466932854452109456"
-                                    rel="author"
-                                    title="rina chaudhary"
-                                    >rina chaudhary</a
-                                  ></span
-                                ></span
-                              >
-                            </div>
-                            <div class="meta-item meta-rtime">
-                              <span class="eta">1 minute</span>Read
-                            </div>
-                          </div>
-                          <!--<script class="java" type="text/javascript">
-                          //<![CDATA[
-                          function metaset(s) {
-                            var a = s.entry,
-                              n = a.published.$t,
-                              t = n.substring(0, 4),
-                              e = n.substring(5, 7),
-                              r = n.substring(8, 10),
-                              p = new Array();
-                            (p[1] = 'Jan'),
-                              (p[2] = 'Feb'),
-                              (p[3] = 'Mar'),
-                              (p[4] = 'Apr'),
-                              (p[5] = 'May'),
-                              (p[6] = 'Jun'),
-                              (p[7] = 'Jul'),
-                              (p[8] = 'Aug'),
-                              (p[9] = 'Sep'),
-                              (p[10] = 'Oct'),
-                              (p[11] = 'Nov'),
-                              (p[12] = 'Dec'),
-                              document.write(
-                                '<div class="post-date"><span class="post-date-day">' +
-                                  r +
-                                  '</span><span class="post-date-month">' +
-                                  p[parseInt(e, 10)] +
-                                  '</span> - <span class="post-date-year">' +
-                                  t +
-                                  '</span></div>'
-                              );
-                          }
-                          //]]>
-                        </script>-->
-                          <!--<script
-                            class="java"
-                            src="/feeds/posts/default/6511823553121161844?alt=json-in-script&amp;callback=metaset"
-                            type="text/javascript"
-                          ></script>-->
-                          <div class="post-date">
-                            <span class="post-date-day">05</span
-                            ><span class="post-date-month">Jan</span> -
-                            <span class="post-date-year">2015</span>
-                          </div>
-                          <div class="resumo">
-                            <div
-                              id="summary6511823553121161844"
-                              style="display: block"
-                            >
-                              <p>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Nulla elementum viverra
-                                pharetra. Nulla facilisis, sapien non pharetra
-                                venenatis, tortor erat tempus est, sed accumsan
-                                odio ante ac elit. Nulla hendrerit a est vel
-                                ornare. Proin eu sapien a sapien dignissim
-                                feugiat non eget turpis. Proin at accumsan
-                                risus. Pellentesque nunc diam, congue ac lacus
-                                nec, volutpat tincidunt turpis....
-                              </p>
-                            </div>
-                          </div>
-                          
-                          <div class="entry-footer">
-                            <a
-                              class="typology-button"
-                              href="https://typography-themexpose.blogspot.com/2015/01/hidden-ipad-features-that-could-improve.html"
-                              >Read More</a
-                            >
-                          </div>
-                          <div style="clear: both"></div>
-                        </div>
-                      </div>
-                    </article>
-                    <div class="hreview" style="display: none">
-                      <span class="item">
-                        <span class="fn"
-                          >Hidden iPad features that could improve your
-                          life</span
-                        >
-                        <img
-                          alt="Hidden iPad features that could improve your life"
-                          class="photo"
-                          src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiV0lqiG62skjsFWOJEoVkl7KmW-0EdjIVXXCZTmPsLPNqTbJpbBiyTxsKNtQ3S1JoXoMhmswNVeSKtZgwMJJ0nUKfDIbdsESytQuEFqHYcGmqvVPZ0RjYG1xKxoItt0o-AV_L1yD2uSHPN/s72-c/HO17JW3B2S-730x480.jpg"
-                        />
-                      </span>
-                      Reviewed by <span class="reviewer">rina chaudhary</span>
-                      on
-                      <span class="dtreviewed">
-                        Monday, January 05, 2015
-                        <span
-                          class="value-title"
-                          title="Monday, January 05, 2015"
-                        ></span>
-                      </span>
-                      Rating: <span class="rating">5</span>
-                    </div>
-                    <div style="clear: both"></div>
-                    <div class="post-footer"></div>
-                  </div>
-                  <script type="text/javascript">
-                    //<![CDATA[
-                    $('.index .post-outer,.archive .post-outer').each(
-                      function () {
-                        $(this)
-                          .find('.block-image .thumb a')
-                          .attr('style', function (e, t) {
-                            return t.replace('/default.jpg', '/mqdefault.jpg');
-                          })
-                          .attr('style', function (e, t) {
-                            return t.replace('s72-c', 's1600');
-                          });
-                      }
-                    );
-                    //]]>
-                  </script>
-                </div>
-                <!--Can't find substitution for tag [adEnd]-->
-                <!--Can't find substitution for tag [adStart]-->
-                <!--Can't find substitution for tag [adEnd]-->
+                <% }); %>
+                
               </div>
               <div class="blog-pager" id="blog-pager">
                 <span class="showpageOf">Page 1 of 3</span
@@ -1249,7 +384,7 @@
       .eta {
         display: inline-block;
         padding-right: 5px;
-        text-transform: capitalize;
+        /*text-transform: capitalize;*/
       }
     </style>
     <script>

@@ -5,15 +5,32 @@ import http from 'http';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import express from 'express';
+
+import figlet from 'figlet';
 import fetch from 'node-fetch';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
+
+import { promisify } from 'util';
 import morgan from 'morgan';
 import cors from 'cors';
+import { createClient } from '@supabase/supabase-js';
+
+import { PostService } from './src/services/post-service.js';
 
 /** MAIN ************************************************************** */
 const app = express();
 const PORT = process.env.PORT || 3000;
+const APP_NAME = 'brown.paper.bag';
+const APP_VERSION = '0.0.1';
+
+const DATABASE_URL = process.env.DATABASE_URL;
+const SERVICE_ROLE = process.env.SUPABASE_SERVICE_ROLE;
+const figletize = promisify(figlet);
+const banner = await figletize(`${APP_NAME} v${APP_VERSION}`);
+
+const client = createClient(DATABASE_URL, SERVICE_ROLE);
+const postService = new PostService();
 
 /** MIDDLEWARE ******************************************************** */
 // Disabled to fix (https://github.com/seanttaylor/wanderlust/issues/17)
@@ -36,8 +53,23 @@ app.use(cookieParser());
 /** ROUTES ************************************************************* */
 
 app.get('/', async (req, res) => {
+    
+    let { data: posts, error } = await client .from('posts')
+    .select('*');
+    
     /*** Get latest posts from `latest_posts` table */
-    res.render('index', {});
+    res.render('index', { posts });
+});
+
+app.get('/posts/:contentId', async (req, res) => {
+    const contentId = req.params.contentId.slice(0, 17);
+    const { data, error } = await client.from('posts')
+    .select('*')
+    .eq('contentId', contentId);
+    
+    const [post] = data;
+    
+    res.render('post', { post });
 });
 
 app.use((req, res) => {
@@ -52,8 +84,9 @@ app.use((err, req, res, next) => {
 });
   
 http.createServer(app).listen(PORT, () => {
+    console.log(`${banner}\n`);
     console.info(
-        'backend listening on port %d (http://localhost:%d)',
+        'Application listening on port %d (http://localhost:%d)',
         PORT,
         PORT,
     );
