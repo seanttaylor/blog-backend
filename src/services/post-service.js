@@ -13,7 +13,12 @@ export class PostService {
       return lines.map((line) => {
         // Remove tab characters
         let html = line.replace(/\t/g, '');
-  
+
+        // Process horizontal rule (---)
+        if (html.trim() === '---') {
+          return '<p>&nbsp;</p>\n<hr>\n<p>&nbsp;</p>';
+        }
+    
         // Basic Markdown conversions
         // Bold: **text** or __text__
         html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
@@ -40,7 +45,7 @@ export class PostService {
 	 * include in the summary
 	 */
 	static toSummary(htmlArray, count = 5) {
-        if (count <= 0) return [];
-        return htmlArray.slice(0, count);
-    }
+    if (count <= 0) return [];
+    return htmlArray.slice(0, count);
+  }
 }

@@ -31,6 +31,10 @@ const banner = await figletize(`${APP_NAME} v${APP_VERSION}`);
 
 const client = createClient(DATABASE_URL, SERVICE_ROLE);
 const postService = new PostService();
+const TAG_MAP = Object.freeze({
+    'last-rites': 'Last Rites',
+    'cloud-city': 'Cloud City'
+});
 
 /** MIDDLEWARE ******************************************************** */
 // Disabled to fix (https://github.com/seanttaylor/wanderlust/issues/17)
@@ -50,8 +54,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-/** ROUTES ************************************************************* */
+/** REAL-TIME SUBSCRIPTIONS ************************************************************* */
+const rtSubscription = client.channel('rt-posts')
+  .on(
+    'postgres_changes',
+    { event: 'INSERT', schema: 'public', table: 'posts' },
+    (payload) => {
+      console.log('Change received!', payload)
+      // fetch previous post inserted using the `order` method to sort in descending order by `created_at`
+      // set the `next` property of the previous post the `contentId` of the current post (i.e. the payload)
+      // set the `prev` property of the current post the `contentId` the current post
+    }
+  )
+  .subscribe();
 
+/** ROUTES ************************************************************* */
 app.get('/', async (req, res) => {
     
     let { data: posts, error } = await client .from('posts')
@@ -69,7 +86,7 @@ app.get('/posts/:contentId', async (req, res) => {
     
     const [post] = data;
     
-    res.render('post', { post });
+    res.render('post', { post, tagMap: TAG_MAP });
 });
 
 app.use((req, res) => {
