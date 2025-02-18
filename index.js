@@ -17,7 +17,6 @@ import cors from 'cors';
 import { createClient } from '@supabase/supabase-js';
 
 import { PostService } from './src/services/post-service.js';
-import { MemoryCache } from './src/cache/memory.js';
 
 /** MAIN ************************************************************** */
 const app = express();
@@ -31,7 +30,6 @@ const figletize = promisify(figlet);
 const banner = await figletize(`${APP_NAME} v${APP_VERSION}`);
 
 const client = createClient(DATABASE_URL, SERVICE_ROLE);
-const cache = new MemoryCache();
 const postService = new PostService();
 const TAG_MAP = Object.freeze({
     'last-rites': 'Last Rites',
@@ -82,12 +80,20 @@ app.get('/', async (req, res) => {
 });
 
 app.get('/posts/:contentId', async (req, res) => {
-    const contentId = req.params.contentId.slice(0, 17);
+    const contentId = req.params.contentId;
     const { data, error } = await client.from('posts')
     .select('*')
     .eq('contentId', contentId);
+
+    if (error) {
+        console.error(`INTERNAL_ERROR (PostRouter): Could not get post (${id})`);
+    }
     
     const [post] = data;
+
+    if (!post) {
+        console.error(`NOT FOUND: Could not find post (${id}`);
+    }
     
     res.render('post', { post, tagMap: TAG_MAP });
 });
@@ -133,7 +139,7 @@ app.put('/posts/:contentId', async (req, res) => {
 
         res.status(204).send();
     } catch (ex) {
-        console.error(`INTERNAL_ERROR (PostRoute): Exception encountered during post creation or update. See details -> ${ex.message}`); 
+        console.error(`INTERNAL_ERROR (PostRouter): Exception encountered during post creation or update. See details -> ${ex.message}`); 
     }
 });
 
