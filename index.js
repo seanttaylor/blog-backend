@@ -17,6 +17,7 @@ import cors from 'cors';
 import { createClient } from '@supabase/supabase-js';
 
 import { PostService } from './src/services/post-service.js';
+import { MemoryCache } from './src/cache/memory.js';
 
 /** MAIN ************************************************************** */
 const app = express();
@@ -30,6 +31,7 @@ const figletize = promisify(figlet);
 const banner = await figletize(`${APP_NAME} v${APP_VERSION}`);
 
 const client = createClient(DATABASE_URL, SERVICE_ROLE);
+const cache = new MemoryCache();
 const postService = new PostService();
 const TAG_MAP = Object.freeze({
     'last-rites': 'Last Rites',
@@ -53,6 +55,7 @@ app.use(morgan('tiny'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
 
 /** REAL-TIME SUBSCRIPTIONS ************************************************************* */
 const rtSubscription = client.channel('rt-posts')
@@ -87,6 +90,51 @@ app.get('/posts/:contentId', async (req, res) => {
     const [post] = data;
     
     res.render('post', { post, tagMap: TAG_MAP });
+});
+
+app.put('/posts/:contentId', async (req, res) => {
+    try { 
+        const id = req.params.contentId;
+        const { content } = req.body;
+
+        const { data, error: selectError } = await client.from('posts').select().eq('contentId', id);
+        const myPost = new postService.Post(id, content);
+        myPost.html = postService.toHTML(myPost.raw);
+        myPost.previewHTML = postService.toSummary(myPost.html, myPost.previewLength);
+
+        if (selectError) {
+            console.error(`INTERNAL_ERROR (PostRouter): Could not create new post (${id}). See details -> ${selectError.message}`);
+            res.status(500).send({ message: 'There was an error' });
+            return;
+        }
+        
+        if (data[0]) {
+            const { error: updateError } = await client.from('posts')
+            .update(myPost)
+            .eq('contentId', id);
+
+            if (updateError) {
+                console.error(`INTERNAL_ERROR (PostRouter): Could not update post (${id}). See details -> ${updateError.message}`);
+                res.status(500).send({ message: 'There was an error' });
+                return;
+            }
+
+            res.status(204).send();
+            return;
+        }
+        
+        const { error: createError } = await client.from('posts').insert(myPost);
+        
+        if (createError) {
+            console.error(`INTERNAL_ERROR (PostRouter): Could not create new post (${id}). See details -> ${createError.message}`);
+            res.status(500).send({ message: 'There was an error' });
+            return;
+        }
+
+        res.status(204).send();
+    } catch (ex) {
+        console.error(`INTERNAL_ERROR (PostRoute): Exception encountered during post creation or update. See details -> ${ex.message}`); 
+    }
 });
 
 app.use((req, res) => {
