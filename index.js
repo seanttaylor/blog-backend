@@ -7,7 +7,6 @@ import { fileURLToPath } from 'url';
 import express from 'express';
 
 import figlet from 'figlet';
-import fetch from 'node-fetch';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 
@@ -56,12 +55,49 @@ app.use(cookieParser());
 
 
 /** REAL-TIME SUBSCRIPTIONS ************************************************************* */
+const SubscriptionProvider = {
+    INSERT: async (payload) => {
+        try {
+            const POST_SEQUENCE_NO = payload.new.seq;
+            const { data: prev, error: selectError } = await client.from('posts').select('*')
+            .lt('seq', POST_SEQUENCE_NO)
+            .order('seq', { ascending: false })
+            .limit(1);
+
+            if (selectError) {
+                console.error(`INTERNAL_ERROR (SubscriptionProvider): Could not finish update on post (${payload.new.contentId}) See details -> ${selectError.message}`);
+                return;
+            }
+            const [prevPost] = prev;
+            const { error: newPostError } = await client.from('posts').update({ next: payload.new.url }).eq('contentId', prevPost.contentId);
+            const { error: prevPostError } = await client.from('posts').update({ prev: prevPost.url  }).eq('contentId', payload.new.contentId);
+            
+            if ( newPostError || prevPostError) {
+                console.error(`INTERNAL_ERROR (SubscriptionProvider): There was an error updating either the new post or the prev post.  See details -> New post error ->> ${newPostError.message} | Prev post error ->> ${prevPost.message} `);
+            }
+
+        } catch(ex) { 
+            console.error(`INTERNAL_ERROR: Exception encountered during post update. See details -> ${ex.message}`);
+        }
+    },
+    UPDATE: async (payload) => {
+        // noop
+    },
+    DELETE: async (payload) => {
+        // noop
+    }
+};
+
 const rtSubscription = client.channel('rt-posts')
   .on(
     'postgres_changes',
-    { event: 'INSERT', schema: 'public', table: 'posts' },
+    { event: '*', schema: 'public', table: 'posts' },
     (payload) => {
-      console.log('Change received!', payload)
+        try {
+            SubscriptionProvider[payload.eventType](payload);
+        } catch(ex) {
+            console.error(`INTERNAL_ERROR (rtSubscription): Exception encountered during real-time subscription handling. See details -> ${ex.message}`);
+        }
       // fetch previous post inserted using the `order` method to sort in descending order by `created_at`
       // set the `next` property of the previous post the `contentId` of the current post (i.e. the payload)
       // set the `prev` property of the current post the `contentId` the current post
