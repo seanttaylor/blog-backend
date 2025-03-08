@@ -1,3 +1,5 @@
+import { readingTime } from 'reading-time-estimator';
+
 
 export class PostService {
   /**
@@ -64,18 +66,21 @@ export class PostService {
      * @param {String} rawText - content of the post
      */
     constructor(id, rawText) {
+      const { minutes, words } = readingTime(rawText);
+
 			this.contentId = id;
       this.raw = rawText;
       this.author = '';
       this.date = {};
       this.html = '';
       this.previewHTML = '';
-      this.readingTimeDisplay = '';
-      this.readingTimeMillis = 0;
+      this.readingTimeMinutes = minutes;
+      this.readingTimeDisplay = `${minutes} minutes`;
       this.tags;
       this.title = '';
       this.uri = '';
       this.url = '';
+      this.approxWordCount = words;
 
       this.parseMetadata();
     }
@@ -114,7 +119,7 @@ export class PostService {
             month: monthNames[parseInt(month, 10) - 1] || '',
           };
         } else if (line.startsWith('WORD COUNT:')) {
-          this.wordCount = Number(line.replace('WORD COUNT:', '').trim());
+         //this.approxWordCount = Number(line.replace('WORD COUNT:', '').trim());
         } else if (line.startsWith('URI:')) {
           this.uri = line.replace('URI:', '').trim();
           this.parseURI(this.uri);
