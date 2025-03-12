@@ -4338,3 +4338,7 @@ p.section-break + p::first-line {
 .paragraph-indent {
   text-indent: 4em;
 }
+
+#menu ul li {
+  float: initial;
+}
