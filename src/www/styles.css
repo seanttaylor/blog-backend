@@ -4329,3 +4329,12 @@ body.fb_hidden {
 .fb_iframe_widget_fluid span {
   width: 100%;
 }
+
+p.section-break + p::first-line {
+  font-weight: bold; /* Example styling */
+  color: red;
+}
+
+.paragraph-indent {
+  text-indent: 4em;
+}

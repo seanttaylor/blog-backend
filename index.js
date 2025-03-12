@@ -122,13 +122,13 @@ app.get('/posts/:contentId', async (req, res) => {
     .eq('contentId', contentId);
 
     if (error) {
-        console.error(`INTERNAL_ERROR (PostRouter): Could not get post (${id})`);
+        console.error(`INTERNAL_ERROR (PostRouter): Could not get post (${contentId})`);
     }
     
     const [post] = data;
 
     if (!post) {
-        console.error(`NOT FOUND: Could not find post (${id}`);
+        console.error(`NOT FOUND: Could not find post (${contentId}`);
     }
     
     res.render('post', { post, tagMap: TAG_MAP });

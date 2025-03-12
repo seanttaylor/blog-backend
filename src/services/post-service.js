@@ -19,7 +19,7 @@ export class PostService {
 
 			// Process horizontal rule (---)
       if (html.trim() === '---') {
-        return '<p>&nbsp;</p>\n<hr>\n<p>&nbsp;</p>';
+        return '<p class="section-break">&nbsp;</p>\n<hr>\n<p class="section-break">&nbsp;</p>';
       }
 
 			// Process headings (#, ##, ###, etc.)
@@ -45,7 +45,7 @@ export class PostService {
       html = html.replace(/`(.*?)`/g, '<code>$1</code>');
 
       // Wrap in <p> tags, even if the line is empty
-      return `<p>${html}</p>`;
+      return `<p class="paragraph-indent">${html}</p>`;
     });
   }
 
@@ -141,7 +141,7 @@ export class PostService {
         this.slug = params.get('slug') || '';
 
         if (this.contentId && this.slug) {
-          this.url = `/${this.contentId}-${this.slug}`;
+          this.url = `/${this.contentId}?slug=${this.slug}`;
         }
       } catch (ex) {
         console.error(
