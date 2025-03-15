@@ -35,6 +35,8 @@ const TAG_MAP = Object.freeze({
     'cloud-city': 'Cloud City'
 });
 
+const POSTS_PER_PAGE = 5;
+
 /** MIDDLEWARE ******************************************************** */
 // Disabled to fix (https://github.com/seanttaylor/wanderlust/issues/17)
 
@@ -107,12 +109,34 @@ const rtSubscription = client.channel('rt-posts')
 
 /** ROUTES ************************************************************* */
 app.get('/', async (req, res) => {
-    
-    let { data: posts, error } = await client .from('posts')
-    .select('*');
+    try {
+        const CURRENT_PAGE = req.query.page || 0;
+        const { data: POST_COUNT, error: rpcError } = await client.rpc('count_posts');
+
+        if (rpcError) {
+           console.error(`INTERNAL_ERROR (PostRouter): Error while getting count of posts. See details -> ${rpcError.message}`);
+        }
+
+        let { data: posts, error } = await client .from('posts')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(POSTS_PER_PAGE)
+
+        if (error) {
+            console.error(`INTERNAL_ERROR (PostRouter): Database error while fetching posts. See details -> ${error.message}`);
+            res.status(500).send({ message: 'There was an error'});
+            return;
+        }
     
     /*** Get latest posts from `latest_posts` table */
-    res.render('index', { posts });
+    res.render('index', { posts, options: { 
+        CURRENT_PAGE,
+        POSTS_PER_PAGE, 
+        POST_COUNT,
+     }});
+    } catch(ex) {
+        console.error(`INTERNAL_ERROR (PostRouter): Exception encountered while fetching posts. See details -> ${ex.message}`);
+    }
 });
 
 app.get('/posts/:contentId', async (req, res) => {

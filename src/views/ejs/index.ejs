@@ -118,33 +118,33 @@
                   <select class="selectnav" id="selectnav1">
                     <option value="">Menu</option>
                     <option
-                      value="https://typography-themexpose.blogspot.com/"
+                      value="#"
                       selected=""
                     >
                       Home
                     </option>
                     <option
-                      value="https://typography-themexpose.blogspot.com/#"
+                      value="/#"
                     >
                       Series
                     </option>
                     <option
-                      value="https://typography-themexpose.blogspot.com/#"
+                      value="/#"
                     >
                       → Last Rites
                     </option>
                     <option
-                      value="https://typography-themexpose.blogspot.com/#"
+                      value="/#"
                     >
                       → Cloud City
                     </option>
                     <!--<option
-                      value="https://typography-themexpose.blogspot.com/#"
+                      value="/#"
                     >
                       → drop down
                     </option>-->
                     <option
-                      value="https://typography-themexpose.blogspot.com/#"
+                      value="/#"
                     >
                       About
                     </option>
@@ -218,7 +218,7 @@
                                 </span>
                               </div>
                               <div class="meta-item meta-rtime">
-                                <span class="eta"><%= post.readingTimeDisplay %></span> read
+                                <span class="eta"><%= post.readingTimeDisplay %></span>
                               </div>
                             </div>
                             <div class="post-date">
@@ -247,20 +247,19 @@
               </div>
               <div class="blog-pager" id="blog-pager">
                 <span class="showpageOf">Page 1 of 3</span
-                ><span class="showpagePoint">1</span
-                ><span class="showpageNum"
-                  ><a href="#" onclick="redirectpage(2);return false"
-                    >2</a
-                  ></span
-                ><span class="showpageNum"
-                  ><a href="#" onclick="redirectpage(3);return false"
-                    >3</a
-                  ></span
-                ><span class="showpageNum"
-                  ><a href="#" onclick="redirectpage(2);return false"
-                    >Next</a
-                  ></span
-                >
+                  ><span class="showpagePoint">1</span>
+                <% for (let i=1; i < Math.ceil(options.POST_COUNT/options.POSTS_PER_PAGE); i++) { %> 
+                  <span class="showpageNum">
+                    <a href="/posts?page=<%=i+1%>&offset=<%=options.POSTS_PER_PAGE*i+1%>" ><%=i+1%></a>
+                  </span>
+                <% } %>
+
+                <% if (options.POST_COUNT >= options.POST_PER_PAGE) { %>
+                  <span class="showpageNum">
+                    <a href="#">Next</a>
+                  </span>
+                <%} %>
+                
               </div>
               <div class="clear"></div>
               <!--<div class="blog-feeds">
@@ -305,8 +304,7 @@
         <div class="unwanted section" id="unwanted">
           <div class="widget Attribution" data-version="1" id="Attribution1">
             <div class="widget-content" style="text-align: center">
-              Powered by
-              <a href="https://www.blogger.com" target="_blank">Blogger</a>.
+              <a href="#" target="_blank"></a>.
             </div>
             <div class="clear"></div>
           </div>
@@ -342,7 +340,7 @@
                 width="100%"
                 id="navbar-iframe"
                 name="navbar-iframe"
-                src="https://www.blogger.com/navbar.g?targetBlogID=5214278391032237955&amp;blogName=Typography&amp;publishMode=PUBLISH_MODE_BLOGSPOT&amp;navbarType=LIGHT&amp;layoutType=LAYOUTS&amp;searchRoot=https://typography-themexpose.blogspot.com/search&amp;blogLocale=en&amp;v=2&amp;homepageUrl=https://typography-themexpose.blogspot.com/&amp;vt=8027660939578599662&amp;usegapi=1&amp;jsh=m%3B%2F_%2Fscs%2Fabc-static%2F_%2Fjs%2Fk%3Dgapi.lb.en.eXGUr_3hPjA.O%2Fd%3D1%2Frs%3DAHpOoo-g8reFxkIuQ1pTpW4rHM0-Devz-A%2Fm%3D__features__#id=navbar-iframe&amp;_gfid=navbar-iframe&amp;parent=https%3A%2F%2Ftypography-themexpose.blogspot.com&amp;pfname=&amp;rpctoken=41616103"
+                src="/#"
               ></iframe>
             </div>
           </div>
@@ -365,9 +363,9 @@
           <p>
             Created By
             <a
-              href="http://www.themexpose.com/"
+              href="#"
               id="mycontent"
-              title="Blogger Templates"
+              title=""
               ref="dofollow"
               style="
                 display: inline-block !important;

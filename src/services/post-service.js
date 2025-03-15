@@ -75,7 +75,7 @@ export class PostService {
       this.html = '';
       this.previewHTML = '';
       this.readingTimeMinutes = minutes;
-      this.readingTimeDisplay = `${minutes} minute`;
+      this.readingTimeDisplay = `${minutes} minutes`;
       this.tags;
       this.title = '';
       this.uri = '';
