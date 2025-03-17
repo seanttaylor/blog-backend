@@ -16,6 +16,7 @@ import cors from 'cors';
 import { createClient } from '@supabase/supabase-js';
 
 import { PostService } from './src/services/post-service.js';
+import { Middleware } from './middleware.js';
 
 /** MAIN ************************************************************** */
 const app = express();
@@ -23,23 +24,24 @@ const PORT = process.env.PORT || 3000;
 const APP_NAME = 'brown.paper.bag';
 const APP_VERSION = '0.0.1';
 
+const POSTS_PER_PAGE = 5;
 const DATABASE_URL = process.env.DATABASE_URL;
 const SERVICE_ROLE = process.env.SUPABASE_SERVICE_ROLE;
-const figletize = promisify(figlet);
-const banner = await figletize(`${APP_NAME} v${APP_VERSION}`);
-
-const client = createClient(DATABASE_URL, SERVICE_ROLE);
-const postService = new PostService();
 const TAG_MAP = Object.freeze({
     'last-rites': 'Last Rites',
     'cloud-city': 'Cloud City'
 });
 
-const POSTS_PER_PAGE = 5;
+const figletize = promisify(figlet);
+const banner = await figletize(`${APP_NAME} v${APP_VERSION}`);
+const client = createClient(DATABASE_URL, SERVICE_ROLE);
+const postService = new PostService();
+
 
 /** MIDDLEWARE ******************************************************** */
 // Disabled to fix (https://github.com/seanttaylor/wanderlust/issues/17)
 
+const middleware = new Middleware(client);
 // eslint-disable-next-line
 const __filename = fileURLToPath(import.meta.url);
 // eslint-disable-next-line
@@ -108,7 +110,7 @@ const rtSubscription = client.channel('rt-posts')
   .subscribe();
 
 /** ROUTES ************************************************************* */
-app.get('/', async (req, res) => {
+app.get('/', async (req, res, next) => {
     try {
         const CURRENT_PAGE = req.query.page || 0;
         const { data: POST_COUNT, error: rpcError } = await client.rpc('count_posts');
@@ -128,7 +130,7 @@ app.get('/', async (req, res) => {
             return;
         }
     
-    /*** Get latest posts from `latest_posts` table */
+    /*** Get latest posts from `latest_posts` table ***/
     res.render('index', { posts, options: { 
         CURRENT_PAGE,
         POSTS_PER_PAGE, 
@@ -136,29 +138,38 @@ app.get('/', async (req, res) => {
      }});
     } catch(ex) {
         console.error(`INTERNAL_ERROR (PostRouter): Exception encountered while fetching posts. See details -> ${ex.message}`);
+        next();
     }
 });
 
 app.get('/posts/:contentId', async (req, res) => {
-    const contentId = req.params.contentId;
-    const { data, error } = await client.from('posts')
-    .select('*')
-    .eq('contentId', contentId);
-
-    if (error) {
-        console.error(`INTERNAL_ERROR (PostRouter): Could not get post (${contentId})`);
-    }
+    try {
+        const contentId = req.params.contentId;
+        const { data, error } = await client.from('posts')
+        .select('*')
+        .eq('contentId', contentId);
     
-    const [post] = data;
-
-    if (!post) {
-        console.error(`NOT FOUND: Could not find post (${contentId}`);
-    }
+        if (error) {
+            console.error(`INTERNAL_ERROR (PostRouter): Could not get post (${contentId})`);
+            res.status(404).send({ message: 'NOT FOUND' });
+        }
+        
+        const [post] = data;
     
-    res.render('post', { post, tagMap: TAG_MAP });
+        if (!post) {
+            console.error(`NOT FOUND (PostRouter): Could not find post (${contentId}`);
+            res.status(404).send({ message: 'NOT FOUND' });
+        }
+        
+        res.render('post', { post, tagMap: TAG_MAP });
+
+    } catch(ex) {
+        console.error(`INTERNAL_ERROR (PostRouter): Exception encountered while fetching post (${contentId}) See details -> ${ex.message}`);
+        next();
+    }
 });
 
-app.put('/posts/:contentId', async (req, res) => {
+app.put('/posts/:contentId', middleware.onAuthorization.bind(middleware), async (req, res) => {
     try { 
         const id = req.params.contentId;
         const { content } = req.body;
@@ -200,6 +211,7 @@ app.put('/posts/:contentId', async (req, res) => {
         res.status(204).send();
     } catch (ex) {
         console.error(`INTERNAL_ERROR (PostRouter): Exception encountered during post creation or update. See details -> ${ex.message}`); 
+        next();
     }
 });
 
