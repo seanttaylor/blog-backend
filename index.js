@@ -126,7 +126,8 @@ app.get('/', async (req, res, next) => {
 
         if (error) {
             console.error(`INTERNAL_ERROR (PostRouter): Database error while fetching posts. See details -> ${error.message}`);
-            res.status(500).send({ message: 'There was an error'});
+            res.status(500);
+            res.render('internal-error');
             return;
         }
     
@@ -142,6 +143,15 @@ app.get('/', async (req, res, next) => {
     }
 });
 
+app.get('/about', async (req, res, next) => {
+    try {
+        res.render('about');
+    } catch(ex) {
+        console.error(`INTERNAL_ERROR (PostRouter): Exception encountered while rendering page (/about)`);
+        res.render('internal_error');
+    }
+});
+
 app.get('/posts/:contentId', async (req, res) => {
     try {
         const contentId = req.params.contentId;
@@ -151,14 +161,18 @@ app.get('/posts/:contentId', async (req, res) => {
     
         if (error) {
             console.error(`INTERNAL_ERROR (PostRouter): Could not get post (${contentId})`);
-            res.status(404).send({ message: 'NOT FOUND' });
+            res.status(500);
+            res.render('internal-error');
+            return;
         }
         
         const [post] = data;
     
         if (!post) {
             console.error(`NOT FOUND (PostRouter): Could not find post (${contentId}`);
-            res.status(404).send({ message: 'NOT FOUND' });
+            res.status(404);
+            res.render('not-found');
+            return;
         }
         
         res.render('post', { post, tagMap: TAG_MAP });
@@ -168,6 +182,7 @@ app.get('/posts/:contentId', async (req, res) => {
         next();
     }
 });
+
 
 app.put('/posts/:contentId', middleware.onAuthorization.bind(middleware), async (req, res) => {
     try { 
