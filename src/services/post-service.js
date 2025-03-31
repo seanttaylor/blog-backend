@@ -118,6 +118,8 @@ export class PostService {
             year: year,
             month: monthNames[parseInt(month, 10) - 1] || '',
           };
+
+          this.penDate = `${this.date.year}-${monthNames.indexOf(this.date.month)+1}-${this.date.day}`;
         } else if (line.startsWith('WORD COUNT:')) {
          //this.approxWordCount = Number(line.replace('WORD COUNT:', '').trim());
         } else if (line.startsWith('URI:')) {

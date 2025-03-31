@@ -121,7 +121,7 @@ app.get('/', async (req, res, next) => {
 
         let { data: posts, error } = await client .from('posts')
         .select('*')
-        .order('created_at', { ascending: false })
+        .order('penDate', { ascending: false })
         .limit(POSTS_PER_PAGE)
 
         if (error) {
