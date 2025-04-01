@@ -152,6 +152,40 @@ app.get('/about', async (req, res, next) => {
     }
 });
 
+app.get('/series', async (req, res, next) => {
+    try {
+        const name = req.query.name
+        const CURRENT_PAGE = req.query.page || 0;
+        const { data: POST_COUNT, error: rpcError } = await client.rpc('count_posts');
+
+        if (rpcError) {
+           console.error(`INTERNAL_ERROR (PostRouter): Error while getting count of posts. See details -> ${rpcError.message}`);
+        }
+
+        let { data: posts, error } = await client .from('posts')
+        .select('*')
+        .contains('tags', [name])
+        .order('penDate', { ascending: false })
+        .limit(POSTS_PER_PAGE)
+
+        if (error) {
+            console.error(`INTERNAL_ERROR (PostRouter): Database error while fetching posts. See details -> ${error.message}`);
+            res.status(500);
+            res.render('internal-error');
+            return;
+        }
+    
+    res.render('series', { posts, options: {
+        CURRENT_PAGE,
+        POSTS_PER_PAGE, 
+        POST_COUNT,
+    } });
+    } catch(ex) {
+        console.error(`INTERNAL_ERROR (PostRouter): Exception encountered while fetching posts. See details -> ${ex.message}`);
+        next();
+    }
+});
+
 app.get('/posts/:contentId', async (req, res) => {
     try {
         const contentId = req.params.contentId;
@@ -231,14 +265,16 @@ app.put('/posts/:contentId', middleware.onAuthorization.bind(middleware), async 
 });
 
 app.use((req, res) => {
-    res.status(404).send({ status: 404, error: 'Not Found' });
+    console.error(`NOT FOUND (PostRouter): Could not find path (${req.path})`);
+    res.status(404);
+    res.render('not-found');
 });
 
 // eslint-disable-next-line
 app.use((err, req, res, next) => {
-    const status = err.status || 500;
     console.error(err);
-    res.status(status).send({ status, error: 'There was an error.' });
+    res.status(500);
+    res.render('internal-error');
 });
   
 http.createServer(app).listen(PORT, () => {
