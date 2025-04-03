@@ -69,7 +69,7 @@
       <div id="header-inner">
       <div class="titlewrapper">
       <h1 class="title">
-      <a href="#/">Brown&nbsp;Paper&nbsp;Bag</a>
+      <a href="/posts">Brown&nbsp;Paper&nbsp;Bag</a>
       </h1>
       </div>
       <div class="descriptionwrapper">
@@ -89,7 +89,7 @@
       <div class="menu section" id="menu" name="Main Menu" style="display: block;">
           <div class="widget LinkList" data-version="1" id="LinkList110">
               <ul id="nav">
-                  <li><a href="/">Home</a></li>
+                  <li><a href="/posts">Home</a></li>
                   <!--<li class="hasSub">
                       <a href="#">Series</a>
                           <ul id="sub-menu">
@@ -104,7 +104,8 @@
               </ul>
               <select class="selectnav" id="selectnav1">
                   <option value="">Menu</option>
-                  <option value="#">Home</option>
+                  <option value=""> Home </option>
+                  <option value="">About</option>
                   <!--<option value="#">Series</option>
                   <option value="/series?name=last-rites">→ Last Rites</option>
                   <option value="/series?name=cloud-city">→ Cloud City</option>-->
@@ -205,12 +206,26 @@
                 <% }); %>
                 
               </div>
-              <div class="blog-pager" id="blog-pager">
+              <!--<div class="blog-pager" id="blog-pager">
                 <span class="showpageOf">Page 1 of 3</span
-                  ><span class="showpagePoint">1</span>
-                <% for (let i=1; i < Math.ceil(options.POST_COUNT/options.POSTS_PER_PAGE); i++) { %> 
-                  <span class="showpageNum">
-                    <a href="/posts?page=<%=i+1%>&offset=<%=options.POSTS_PER_PAGE*i+1%>" ><%=i+1%></a>
+                  >
+                <span class="showpagePoint">1</span>
+                <% for (let i=0; i < Math.ceil(options.POST_COUNT/options.POSTS_PER_PAGE); i++) { %> 
+                  <% 
+                  var IS_CURRENT_PAGE = options.CURRENT_PAGE-1 === i; 
+                  var linkColor = IS_CURRENT_PAGE ? "white" : "initial";
+                  
+                  %>
+
+                  <span class="<%= IS_CURRENT_PAGE ? 'showPagePoint' : 'showPageNum' %>">
+                    <% if (IS_CURRENT_PAGE) { %>
+                      <%= i + 1 %>
+                    <% } else { %>
+                      <a href="/posts?page=<%= i + 1 %>&offset=<%= options.POSTS_PER_PAGE * (i + 1) %>" 
+                         style="color: <%= linkColor %>">
+                        <%= i + 1 %>
+                      </a>
+                    <% } %>
                   </span>
                 <% } %>
 
@@ -220,7 +235,7 @@
                   </span>
                 <%} %>
                 
-              </div>
+              </div>-->
               <div class="clear"></div>
               <!--<div class="blog-feeds">
                 <div class="feed-links">
@@ -294,7 +309,6 @@
                 marginheight="0"
                 marginwidth="0"
                 scrolling="no"
-                style=""
                 tabindex="0"
                 vspace="0"
                 width="100%"

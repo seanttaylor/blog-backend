@@ -110,9 +110,10 @@ const rtSubscription = client.channel('rt-posts')
   .subscribe();
 
 /** ROUTES ************************************************************* */
-app.get('/', async (req, res, next) => {
+app.get('/posts', async (req, res, next) => {
     try {
-        const CURRENT_PAGE = req.query.page || 0;
+        const CURRENT_PAGE = req.query.page || 1;
+        const OFFSET = req.query.offset || 0;
         const { data: POST_COUNT, error: rpcError } = await client.rpc('count_posts');
 
         if (rpcError) {
@@ -122,7 +123,8 @@ app.get('/', async (req, res, next) => {
         let { data: posts, error } = await client .from('posts')
         .select('*')
         .order('penDate', { ascending: false })
-        .limit(POSTS_PER_PAGE)
+        //.limit(POSTS_PER_PAGE)
+       // .range(OFFSET, OFFSET + POSTS_PER_PAGE);
 
         if (error) {
             console.error(`INTERNAL_ERROR (PostRouter): Database error while fetching posts. See details -> ${error.message}`);
@@ -155,7 +157,7 @@ app.get('/about', async (req, res, next) => {
 app.get('/series', async (req, res, next) => {
     try {
         const name = req.query.name
-        const CURRENT_PAGE = req.query.page || 0;
+        const CURRENT_PAGE = req.query.page || 1;
         const { data: POST_COUNT, error: rpcError } = await client.rpc('count_posts');
 
         if (rpcError) {
