@@ -27,7 +27,7 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
     <meta content="Three Penny Press" property="og:title" />
     <meta content="" property="og:description" />
-    <title>Brown Paper Bag</title>
+    <title>The Penny Press</title>
     <!-- Description and Keywords (start) -->
     <meta content="YOUR DESCRIPTION HERE" name="description" />
     <meta content="YOUR KEYWORDS HERE" name="keywords" />
@@ -69,7 +69,7 @@
       <div id="header-inner">
       <div class="titlewrapper">
       <h1 class="title">
-      <a href="/posts">Brown&nbsp;Paper&nbsp;Bag</a>
+      <a href="/posts">The&nbsp;Penny&nbsp;Press</a>
       </h1>
       </div>
       <div class="descriptionwrapper">
@@ -89,7 +89,7 @@
       <div class="menu section" id="menu" name="Main Menu" style="display: block;">
           <div class="widget LinkList" data-version="1" id="LinkList110">
               <ul id="nav">
-                  <li><a href="/posts">Home</a></li>
+                  <!--<li><a href="/posts">Home</a></li>-->
                   <!--<li class="hasSub">
                       <a href="#">Series</a>
                           <ul id="sub-menu">
@@ -105,7 +105,7 @@
               <select class="selectnav" id="selectnav1">
                   <option value="">Menu</option>
                   <option value=""> Home </option>
-                  <option value="">About</option>
+                  <option value="" data-href="/about">About</option>
                   <!--<option value="#">Series</option>
                   <option value="/series?name=last-rites">→ Last Rites</option>
                   <option value="/series?name=cloud-city">→ Cloud City</option>-->
@@ -242,7 +242,7 @@
                   Subscribe to:
                   <a
                     class="feed-link"
-                    href="https://typography-themexpose.blogspot.com/feeds/posts/default"
+                    href=""
                     target="_blank"
                     type="application/atom+xml"
                   >
@@ -365,6 +365,21 @@
     </style>
     <script>
       windowWidth = window.innerWidth;
+      (function main() {
+        console.log('The Penny Press v0.0.1');
+        const miniNavAboutLink = document.querySelector('#selectnav1');
+
+        // In this version there's only the about link to click so 
+        // this will be fine
+
+        miniNavAboutLink.addEventListener('click', (e) => {
+          const [clickedItem] = Array.from(e.target.children).filter((c) => {
+            return c.dataset.href;
+          });
+          const location = clickedItem.dataset.href;
+          window.location = location;
+        });
+      }());
     </script>
 
     <!--<script src="/feeds/posts/summary?max-results=1&amp;alt=json-in-script&amp;callback=hitungtotaldata"></script>-->
