@@ -21,7 +21,7 @@ import { Middleware } from './middleware.js';
 /** MAIN ************************************************************** */
 const app = express();
 const PORT = process.env.PORT || 3000;
-const APP_NAME = 'brown.paper.bag';
+const APP_NAME = 'the.penny.press';
 const APP_VERSION = '0.0.1';
 
 const POSTS_PER_PAGE = 5;
