@@ -1,6 +1,8 @@
 import { readingTime } from 'reading-time-estimator';
 
-
+/**
+ * 
+ */
 export class PostService {
   /**
    * Converts markdown text to HTML for rendering on the front end
@@ -86,6 +88,7 @@ export class PostService {
     }
 
     /**
+     * Extracts metadata from the post's raw text
      * @returns {void}
      */
     parseMetadata() {
@@ -130,7 +133,7 @@ export class PostService {
     }
 
     /**
-     * 
+     * Extracts key metdata on the from a URI
      * @param {String} uri 
      * @returns {void}
      */

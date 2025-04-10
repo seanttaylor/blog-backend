@@ -1,7 +1,7 @@
 {
-    "name": "blog-backend",
-    "version": "1.0.0",
-    "description": "The backend for my blog",
+    "name": "johannes",
+    "version": "0.0.1",
+    "description": "A dead simple blog backend",
     "type": "module",
     "main": "index.js",
     "scripts": {

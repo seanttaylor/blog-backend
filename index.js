@@ -51,7 +51,6 @@ app.set('views', path.join(__dirname, 'src/views/ejs'));
 app.use(express.static(path.join(__dirname, './src/www')));
 
 app.use(cors());
-// app.use(helmet());
 app.use(morgan('tiny'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -59,7 +58,16 @@ app.use(cookieParser());
 
 
 /** REAL-TIME SUBSCRIPTIONS ************************************************************* */
+
+/**
+ * Houses all handlers for real-time time updates on the `posts` table
+ */
 const SubscriptionProvider = {
+    /**
+     * Ensures links to the next and previous links to incoming posts are assigned correctly
+     * @param {Object} payload - update payload from Supabase 
+     * @returns {void}
+     */
     INSERT: async (payload) => {
         try {
             const POST_SEQUENCE_NO = payload.new.seq;
@@ -102,14 +110,16 @@ const rtSubscription = client.channel('rt-posts')
         } catch(ex) {
             console.error(`INTERNAL_ERROR (rtSubscription): Exception encountered during real-time subscription handling. See details -> ${ex.message}`);
         }
-      // fetch previous post inserted using the `order` method to sort in descending order by `created_at`
-      // set the `next` property of the previous post the `contentId` of the current post (i.e. the payload)
-      // set the `prev` property of the current post the `contentId` the current post
     }
   )
   .subscribe();
 
 /** ROUTES ************************************************************* */
+
+
+/**
+ * Returns all posts 
+ */
 app.get('/posts', async (req, res, next) => {
     try {
         const CURRENT_PAGE = req.query.page || 1;
@@ -124,7 +134,7 @@ app.get('/posts', async (req, res, next) => {
         .select('*')
         .order('penDate', { ascending: false })
         //.limit(POSTS_PER_PAGE)
-       // .range(OFFSET, OFFSET + POSTS_PER_PAGE);
+        // .range(OFFSET, OFFSET + POSTS_PER_PAGE);
 
         if (error) {
             console.error(`INTERNAL_ERROR (PostRouter): Database error while fetching posts. See details -> ${error.message}`);
@@ -133,7 +143,6 @@ app.get('/posts', async (req, res, next) => {
             return;
         }
     
-    /*** Get latest posts from `latest_posts` table ***/
     res.render('index', { posts, options: { 
         CURRENT_PAGE,
         POSTS_PER_PAGE, 
@@ -145,6 +154,10 @@ app.get('/posts', async (req, res, next) => {
     }
 });
 
+
+/**
+ * Returns the 'about' page 
+ */
 app.get('/about', async (req, res, next) => {
     try {
         res.render('about');
@@ -154,6 +167,10 @@ app.get('/about', async (req, res, next) => {
     }
 });
 
+
+/**
+ * Pulls a series of posts with a tag specified in the `name` query parameter
+ */
 app.get('/series', async (req, res, next) => {
     try {
         const name = req.query.name
@@ -188,6 +205,9 @@ app.get('/series', async (req, res, next) => {
     }
 });
 
+/**
+ * Gets a specified post by its `contentId`
+ */
 app.get('/posts/:contentId', async (req, res) => {
     try {
         const contentId = req.params.contentId;
@@ -219,7 +239,9 @@ app.get('/posts/:contentId', async (req, res) => {
     }
 });
 
-
+/**
+ * Creates or updates an existing post
+ */
 app.put('/posts/:contentId', middleware.onAuthorization.bind(middleware), async (req, res) => {
     try { 
         const id = req.params.contentId;
@@ -278,7 +300,8 @@ app.use((err, req, res, next) => {
     res.status(500);
     res.render('internal-error');
 });
-  
+
+/** SERVER START ************************************************************* */
 http.createServer(app).listen(PORT, () => {
     console.log(`${banner}\n`);
     console.info(

@@ -2,18 +2,17 @@ export class Middleware {
     #dbClient;
 
     /**
-     * 
-     * @param {*} dbClient 
+     * @param {Object} dbClient 
      */
     constructor(dbClient) {
         this.#dbClient = dbClient;
     }
 
     /**
-     * 
-     * @param {*} req 
-     * @param {*} res 
-     * @param {*} next 
+     * Checks the database for a valid unexpired apikey from the `api_keys` table
+     * @param {Object} req 
+     * @param {Object} res 
+     * @param {Function} next 
      */
     async onAuthorization(req, res, next) {
         try {
