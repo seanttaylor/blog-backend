@@ -63,7 +63,6 @@ export class PostService {
 
   Post = class {
     /**
-     * 
      * @param {String} id - file id created by Google Docs
      * @param {String} rawText - content of the post
      */

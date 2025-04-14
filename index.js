@@ -18,6 +18,12 @@ import { createClient } from '@supabase/supabase-js';
 import { PostService } from './src/services/post-service.js';
 import { Middleware } from './middleware.js';
 
+/**
+ * @typedef {import('express').Request} ExpressRequest
+ * @typedef {import('express').Response} ExpressResponse
+ * @typedef {import('express').NextFunction} NextFunction
+ */
+
 /** MAIN ************************************************************** */
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -119,9 +125,13 @@ const rtSubscription = client.channel('rt-posts')
 
 /**
  * Returns all posts 
+ * @param {ExpressRequest} req
+ * @param {ExpressResponse} res
+ * @param {NextFunction} next
  */
 app.get('/posts', async (req, res, next) => {
     try {
+        
         const CURRENT_PAGE = req.query.page || 1;
         const OFFSET = req.query.offset || 0;
         const { data: POST_COUNT, error: rpcError } = await client.rpc('count_posts');
@@ -157,6 +167,9 @@ app.get('/posts', async (req, res, next) => {
 
 /**
  * Returns the 'about' page 
+ * @param {ExpressRequest} req
+ * @param {ExpressResponse} res
+ * @param {NextFunction} next
  */
 app.get('/about', async (req, res, next) => {
     try {
@@ -170,6 +183,9 @@ app.get('/about', async (req, res, next) => {
 
 /**
  * Pulls a series of posts with a tag specified in the `name` query parameter
+ * @param {ExpressRequest} req
+ * @param {ExpressResponse} res
+ * @param {NextFunction} next
  */
 app.get('/series', async (req, res, next) => {
     try {
@@ -207,8 +223,11 @@ app.get('/series', async (req, res, next) => {
 
 /**
  * Gets a specified post by its `contentId`
+ * @param {ExpressRequest} req
+ * @param {ExpressResponse} res
+ * @param {NextFunction} next
  */
-app.get('/posts/:contentId', async (req, res) => {
+app.get('/posts/:contentId', async (req, res, next) => {
     try {
         const contentId = req.params.contentId;
         const { data, error } = await client.from('posts')
@@ -241,8 +260,11 @@ app.get('/posts/:contentId', async (req, res) => {
 
 /**
  * Creates or updates an existing post
+ * @param {ExpressRequest} req
+ * @param {ExpressResponse} res
+ * @param {NextFunction} next
  */
-app.put('/posts/:contentId', middleware.onAuthorization.bind(middleware), async (req, res) => {
+app.put('/posts/:contentId', middleware.onAuthorization.bind(middleware), async (req, res, next) => {
     try { 
         const id = req.params.contentId;
         const { content } = req.body;
